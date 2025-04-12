@@ -1,11 +1,10 @@
 <div class="bg-light">
   <app-header></app-header>
 
-  <!-- Profile Card -->
+
   <div class="container mt-4">
     <div class="card p-3 shadow-sm">
       <div class="d-flex align-items-center">
-        <!-- <i class="fa-solid fa-user" class="rounded-circle me-3" alt="Profile"></i> -->
         <img
           src="../../../assets/user-solid.svg"
           class="rounded-circle me-3 h-5 image-class"
@@ -22,10 +21,9 @@
     </div>
   </div>
 
-  <!-- Main Section -->
+
   <div class="container mt-4 mb-5">
     <div class="row">
-      <!-- Sidebar -->
       <div class="col-md-3 mb-3">
         <div class="list-group">
           <a class="list-group-item list-group-item-action active cursor-props">
@@ -74,7 +72,6 @@
         </div>
       </div>
 
-      <!-- Form Area -->
       <div class="col-md-9">
         <h4 class="fw-bold mb-4">PERSONAL INFORMATION</h4>
         <div class="d-flex align-items-center mb-3">
@@ -177,7 +174,6 @@
                   formControlName="phone_num"
                 />
               </div>
-              <!-- Error Message Below Input -->
               @if(profileForm.get('phone_num')?.touched &&
               profileForm.get('phone_num')?.invalid){
               <p class="text-danger">Please enter a valid phone number.</p>

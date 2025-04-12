@@ -1,7 +1,6 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-img">
   <div class="card p-4 shadow" style="width: fit-content">
     <div class="card-body text-center">
-      <!-- Logo -->
       <img
         src="../../../assets/logo.png"
         alt="Logo"
@@ -10,34 +9,27 @@
       />
 
       <form [formGroup]="loginForm">
-        <!-- Username Input -->
         <div class="mb-3 text-start">
-          <input (input)="valueInput()" formControlName="email" type="text" class="form-control" placeholder="Email" />
+          <input  formControlName="email" type="text" class="form-control" placeholder="Email" />
           @if((!this.loginForm.get('email')?.valid && loginForm.get('email')?.touched) || (!this.loginForm.get('email')?.valid &&  isSubmitted) ){
             <p class="error-msg">Please enter a valid email.</p>
           }
         </div>
-        <!-- {{!this.loginForm.get('email')?.valid}}
-        {{!loginForm.get('email')?.touched}}
-        {{!isSubmitted}} -->
-        <!-- {{loginForm.controls['email'].hasError('pattern') || !isValid}}
-        {{loginForm.controls['email'].hasError('pattern')}}
-        {{!isValid}} -->
 
-        <!-- Password Input -->
+
         <div class="mb-1 text-start">
-          <input (input)="valueInput()"  formControlName="password" type="password" class="form-control" placeholder="Password" />
+          <input  formControlName="password" type="password" class="form-control" placeholder="Password" />
           @if((!this.loginForm.get('password')?.valid && loginForm.get('password')?.touched) || (!this.loginForm.get('password')?.valid &&  isSubmitted)){
             <p class="error-msg"> Please enter a valid password.</p>
           }
         </div>
 
-        <!-- Forgot Password -->
+
         <div class="mb-3 text-end">
           <a href="#" class="small text-decoration-none">Forgot Password?</a>
         </div>
 
-        <!-- Login Button (Forest Green) -->
+
         <button
           class="btn w-100 mb-3"
           style="background-color: forestgreen; color: white"

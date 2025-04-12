@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../core/services/auth.service';
 import { passwordValidator } from '../../core/models/functions/passwordvalidation';
 import { Router } from '@angular/router';
 
@@ -88,6 +87,7 @@ export class ProfileComponent implements OnInit {
     this.togglePass[id] = !this.togglePass[id];
   }
 
+  //function to implement logout functionality
   logout(){
     this.router.navigate(['/']);
     localStorage.clear();

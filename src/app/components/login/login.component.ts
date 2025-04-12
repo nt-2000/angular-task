@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   // Creating a reactive form for input validation
   loginForm!:FormGroup;
@@ -24,14 +24,6 @@ export class LoginComponent implements OnInit {
       // password:['', [Validators.required,Validators.pattern(/^(?!\s*$).+/),Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)]]
       password:['', [Validators.required,Validators.pattern(/^(?!\s*$).+/)]]
     })
-  }
-
-  ngOnInit(): void {
-    
-  }
-
-  valueInput(){
-    // this.isSubmitted=false
   }
 
   //api for login functionality
@@ -49,7 +41,7 @@ export class LoginComponent implements OnInit {
     
     this.authService.login(loginReq).subscribe({
       next: (response:any) => {
-        // ✅ Navigate to profile after successful login
+        // Navigate to profile if login successful
         if(response.status === 200){
           console.log('Response in login',response)
           this.router.navigate(['/profile']);
@@ -72,9 +64,6 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid )
     {
       this.loginApi()
-    }
-    else{
-
     }
   
   }

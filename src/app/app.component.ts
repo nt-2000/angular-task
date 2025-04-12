@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { LoginComponent } from "./components/login/login.component";
+import {  RouterOutlet } from '@angular/router';
 import { LoaderService } from './core/services/loader.service';
 import { LoaderComponent } from "./shared/components/loader/loader.component";
 
