@@ -1,0 +1,11 @@
+.image-class{
+    height: 4rem;
+}
+
+.position-props{
+    position: absolute
+}
+
+.child-position{
+    position: relative;
+}

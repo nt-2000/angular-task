@@ -1,0 +1,324 @@
+<div class="bg-light">
+  <app-header></app-header>
+
+  <!-- Profile Card -->
+  <div class="container mt-4">
+    <div class="card p-3 shadow-sm">
+      <div class="d-flex align-items-center">
+        <!-- <i class="fa-solid fa-user" class="rounded-circle me-3" alt="Profile"></i> -->
+        <img
+          src="../../../assets/user-solid.svg"
+          class="rounded-circle me-3 h-5 image-class"
+          alt="Profile"
+        />
+        <div>
+          <h5 class="mb-0">{{ user.first_name }}</h5>
+          <small class="text-muted"
+            >{{ user.phone_code }} {{ user.phone }}</small
+          ><br />
+          <small class="text-muted">{{ user.email }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Section -->
+  <div class="container mt-4 mb-5">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 mb-3">
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action active cursor-props">
+            <img
+              src="../../../assets/user-solid.svg"
+              alt="FAQ Icon"
+              class="me-2"
+              style="height: 20px"
+            />Edit Profile</a
+          >
+          <a class="list-group-item list-group-item-action cursor-props">
+            <img
+              src="../../../assets/question-solid.svg"
+              alt="FAQ Icon"
+              class="me-2"
+              style="height: 20px"
+            />
+            FAQs</a
+          >
+          <a class="list-group-item list-group-item-action cursor-props">
+            <img
+              src="../../../assets/phone-solid.svg"
+              alt="FAQ Icon"
+              class="me-2"
+              style="height: 20px"
+            />Contact Us</a
+          >
+          <a class="list-group-item list-group-item-action cursor-props"
+            ><img
+              src="../../../assets/trash-solid.svg"
+              alt="FAQ Icon"
+              class="me-2"
+              style="height: 20px"
+            />Delete Account</a
+          >
+          <a
+            (click)="logout()"
+            class="list-group-item list-group-item-action text-danger cursor-props"
+            ><img
+              src="../../../assets/right-from-bracket-solid.svg"
+              alt="FAQ Icon"
+              class="me-2"
+              style="height: 20px"
+            />Logout</a
+          >
+        </div>
+      </div>
+
+      <!-- Form Area -->
+      <div class="col-md-9">
+        <h4 class="fw-bold mb-4">PERSONAL INFORMATION</h4>
+        <div class="d-flex align-items-center mb-3">
+          <div class="d-flex align-items-center mb-3">
+            <div class="position-relative me-3">
+              <img
+                src="../../../assets/user-solid.svg"
+                class="rounded-circle image-class"
+                alt="User Image"
+                style="width: 60px; height: 60px"
+              />
+              <img
+                src="../../../assets/icons-solid.svg"
+                alt="Camera Icon"
+                class="position-absolute"
+                style="
+                  bottom: 0;
+                  right: 0;
+                  width: 20px;
+                  height: 20px;
+                  background: white;
+                  border-radius: 50%;
+                  padding: 2px;
+                "
+              />
+            </div>
+            <div>
+              <h5 class="mb-0">{{ user.first_name }} {{ user.last_name }}</h5>
+              <small class="text-muted">{{ user.email }}</small>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="profileForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                formControlName="first_name"
+              />
+              @if(profileForm.get('first_name')?.touched &&
+              profileForm.get('first_name')?.invalid){
+              <p class="text-danger">First name is required.</p>
+              }
+            </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control"
+                formControlName="last_name"
+              />
+
+              @if(profileForm.get('last_name')?.touched &&
+              profileForm.get('last_name')?.invalid){
+              <p class="text-danger">Last name is required.</p>
+              }
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                formControlName="email_address"
+              />
+
+              @if(profileForm.get('email_address')?.touched &&
+              profileForm.get('email_address')?.invalid){
+              <p class="text-danger">Email address is required.</p>
+              }
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone Number</label>
+              <div class="input-group">
+                @for(code of phoneCodes; track code){
+                <select
+                  class="form-select"
+                  style="max-width: 100px"
+                  formControlName="phone_code"
+                >
+                  <option value="">-- Select a code --</option>
+                  <option [value]="code">{{ code }}</option>
+                </select>
+                } @empty {
+                <select
+                  class="form-select"
+                  style="max-width: 100px"
+                  formControlName="phone_code"
+                >
+                  <option value="">-- Select a code --</option>
+                </select>
+                }
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="phone_num"
+                />
+              </div>
+              <!-- Error Message Below Input -->
+              @if(profileForm.get('phone_num')?.touched &&
+              profileForm.get('phone_num')?.invalid){
+              <p class="text-danger">Please enter a valid phone number.</p>
+              }
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Old Password</label>
+              <div class="input-group">
+                <input
+                  [type]="togglePass['showOldPassword'] ? 'text' : 'password'"
+                  class="form-control"
+                  placeholder="Enter your current password"
+                  formControlName="oldpassword"
+                />
+                <span
+                  #eyeIcon
+                  class="input-group-text cursor-props"
+                  id="showOldPassword"
+                  (click)="toggleOldPasswordVisibility(eyeIcon.id)"
+                >
+                  <i
+                    [class]="
+                      !togglePass['showOldPassword']
+                        ? 'bi bi-eye-slash'
+                        : 'bi bi-eye'
+                    "
+                  ></i>
+                </span>
+              </div>
+
+              @if (profileForm.get('oldpassword')?.touched) { @if
+              (profileForm.get('oldpassword')?.hasError('required')) {
+              <p class="text-danger">Old Password is required.</p>
+              } @else if ( profileForm.get('oldpassword')?.hasError('pattern') )
+              {
+              <p class="text-danger">
+                Old Password cannot be empty or whitespace only.
+              </p>
+              } }
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">New Password</label>
+              <div class="input-group">
+                <input
+                  [type]="togglePass['showNewPassword'] ? 'text' : 'password'"
+                  class="form-control"
+                  placeholder="Enter your new password"
+                  formControlName="newpassword"
+                />
+                <span
+                  #eyeIconNew
+                  class="input-group-text cursor-props"
+                  id="showNewPassword"
+                  (click)="toggleOldPasswordVisibility(eyeIconNew.id)"
+                >
+                  <i
+                    [class]="
+                      !togglePass['showNewPassword']
+                        ? 'bi bi-eye-slash'
+                        : 'bi bi-eye'
+                    "
+                  ></i>
+                </span>
+              </div>
+
+              @if (profileForm.get('newpassword')?.touched) { @if
+              (profileForm.get('newpassword')?.hasError('required')) {
+              <p class="text-danger">Password is required.</p>
+              } @else if
+              (profileForm.get('newpassword')?.hasError('whitespace')) {
+              <p class="text-danger">
+                Password cannot be empty or whitespace only.
+              </p>
+              } @else if
+              (profileForm.get('newpassword')?.hasError('weakPassword')) {
+              <p class="text-danger">
+                Password must be at least 8 characters long, include uppercase,
+                lowercase, number, and special character.
+              </p>
+              } }
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Confirm New Password</label>
+              <div class="input-group">
+                <input
+                  [type]="togglePass['confirmNewPass'] ? 'text' : 'password'"
+                  class="form-control"
+                  placeholder="Confirm your new password"
+                  formControlName="renewpass"
+                />
+                <span
+                  #eyeIconCon
+                  class="input-group-text cursor-props"
+                  id="confirmNewPass"
+                  (click)="toggleOldPasswordVisibility(eyeIconCon.id)"
+                >
+                  <i
+                    [class]="
+                      !togglePass['confirmNewPass']
+                        ? 'bi bi-eye-slash'
+                        : 'bi bi-eye'
+                    "
+                  ></i>
+                </span>
+              </div>
+
+              @if (profileForm.get('renewpass')?.touched) { @if
+              (profileForm.get('renewpass')?.hasError('required')) {
+              <p class="text-danger">Password is required.</p>
+              } @else if (profileForm.get('renewpass')?.hasError('whitespace'))
+              {
+              <p class="text-danger">
+                Password cannot be empty or whitespace only.
+              </p>
+              } @else if
+              (profileForm.get('renewpass')?.hasError('weakPassword')) {
+              <p class="text-danger">
+                Password must be at least 8 characters long, include uppercase,
+                lowercase, number, and special character.
+              </p>
+              } @else if(profileForm.get('newpassword')?.value!==
+              profileForm.get('renewpass')?.value){
+              <p class="text-danger">New and confirm password don't match</p>
+              } }
+            </div>
+            <div class="col-12 mt-3">
+              <button
+                type="submit"
+                class="btn btn-teal w-100"
+                style="background-color: #168c8c; color: white"
+                [disabled]="profileForm.invalid"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>
